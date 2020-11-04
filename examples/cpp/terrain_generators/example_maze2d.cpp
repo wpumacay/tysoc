@@ -26,11 +26,12 @@ int main( int argc, char* argv[] )
     LOCO_TRACE( "Rendering-Backend: {0}", RENDERING_BACKEND );
 
     auto scenario = std::make_unique<loco::TScenario>();
+    auto floor = scenario->AddSingleBody( std::make_unique<loco::primitives::TPlane>( "floor", 10.0f, 10.0f, loco::TVec3(), loco::TMat3() ) );
     const ssize_t maze2d_count_x = 5;
     const ssize_t maze2d_count_y = 5;
     auto maze_terrain_gen = scenario->AddTerrainGenerator( std::make_unique<loco::terrain::TMaze2dTerrainGenerator>( 
                                                                     "maze2d_gen0", scenario.get(), maze2d_count_x, maze2d_count_y,
-                                                                    loco::TVec3( 0.1f, 0.1f, 0.1f ), loco::TVec2( 0.0f, 0.0f ) ) );
+                                                                    loco::TVec3( 0.5f, 0.5f, 0.5f ), loco::TVec2( 0.0f, 0.0f ) ) );
     static_cast<loco::terrain::TMaze2dTerrainGenerator*>( maze_terrain_gen )->GenerateLayout( "*xx**" 
                                                                                               "x**x*" 
                                                                                               "**x**" 
@@ -40,6 +41,9 @@ int main( int argc, char* argv[] )
     auto runtime = std::make_unique<loco::TRuntime>( PHYSICS_BACKEND, RENDERING_BACKEND );
     auto simulation = runtime->CreateSimulation( scenario.get() );
     auto visualizer = runtime->CreateVisualizer( scenario.get() );
+
+    floor->drawable()->ChangeTexture( "built_in_chessboard" );
+    floor->drawable()->ChangeColor( { 0.3f, 0.5f, 0.7f } );
 
     while ( visualizer->IsActive() )
     {

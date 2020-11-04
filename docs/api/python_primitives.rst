@@ -4,17 +4,17 @@ Python API --- Primitives
 Box
 ---
 
-.. autoclass:: loco_sim.Box
+.. autoclass:: loco.sim.Box
     :members:
 
 Plane
 -----
 
-.. autoclass:: loco_sim.Plane
+.. autoclass:: loco.sim.Plane
     :members:
 
 Sphere
 ------
 
-.. autoclass:: loco_sim.Sphere
+.. autoclass:: loco.sim.Sphere
     :members:
